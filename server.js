@@ -1,3 +1,9 @@
+process.on("uncaughtException", (err) => {
+  console.log("UNCAUGHT EXCEPTION ! 🧨 Shutting down !");
+  console.log(err.name, err.message);
+  process.exit(1);
+});
+
 const mongoose = require("mongoose");
 const http = require("http");
 const app = require("./app");
@@ -25,8 +31,8 @@ server.listen(PORT, () => {
 });
 
 process.on("unhandledRejection", (err) => {
-  console.log(err.name, err.message);
   console.log("UNHANDLER REJECTION ! 🧨 Shutting down !");
+  console.log(err.name, err.message);
   server.close(() => {
     process.exit(1);
   });
